@@ -1,7 +1,5 @@
-// src/App.jsx
-
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import SecondaryHeader from './components/SecondaryHeader';
 import LoginPage from './components/LoginPage';
@@ -22,26 +20,15 @@ import MobileAppPage from './components/MobileAppPage';
 import DuesPage from './components/DuesPage';
 import ExamPage from './components/ExamPage';
 
-
-// Funkcja do sprawdzania, czy użytkownik jest zalogowany
-const useAuth = () => {
-  const user = localStorage.getItem('user'); // Zmienna przykładowa
-  return user !== null;
-};
-
-// Komponent do ochrony tras
-const ProtectedRoute = ({ element }) => {
-  const isAuthenticated = useAuth();
-  return isAuthenticated ? element : <Navigate to="/login" />;
-};
-
 // Komponent do warunkowego renderowania nagłówka
 const Layout = () => {
   const location = useLocation();
 
   // Lista ścieżek, na których ma być wyświetlany SecondaryHeader
-  const secondaryHeaderPages = ['/student', '/teacher', '/parent', '/other', '/grades', '/schedule', '/presence', '/contact','/library',
-    '/mobile-app','/help', '/about-us', '/dues', '/exams'
+  const secondaryHeaderPages = [
+    '/student', '/teacher', '/parent', '/other', '/grades', '/schedule', 
+    '/presence', '/contact', '/library', '/mobile-app', '/help', 
+    '/about-us', '/dues', '/exams'
   ];
 
   // Sprawdź, czy aktualna ścieżka wymaga SecondaryHeader
@@ -60,20 +47,20 @@ const Layout = () => {
         <Route path="/" element={<HomePage />} /> {/* Dodaj trasę dla strony głównej */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/create-account" element={<CreateAccountPage />} />
-        <Route path="/student" element={<ProtectedRoute element={<StudentPage />} />} />
-        <Route path="/teacher" element={<ProtectedRoute element={<TeacherPage />} />} />
-        <Route path="/parent" element={<ProtectedRoute element={<ParentPage />} />} />
-        <Route path="/other" element={<ProtectedRoute element={<OtherPage />} />} />
-        <Route path="/grades" element={<ProtectedRoute element={<GradePage />} />} />
-        <Route path="/schedule" element={<ProtectedRoute element={<SchedulePage />} />} />
-        <Route path="/presence" element={<ProtectedRoute element={<PresencePage />} />} />
-        <Route path="/library" element={<ProtectedRoute element={<LibraryPage />} />} />
-        <Route path="/contact" element={<ProtectedRoute element={<ContactPage />} />} />
-        <Route path="/help" element={<ProtectedRoute element={<HelpPage />} />} />
-        <Route path="/mobile-app" element={<ProtectedRoute element={<MobileAppPage />} />} />
-        <Route path="/about-us" element={<ProtectedRoute element={<AboutUsPage />} />} />
-        <Route path="/dues" element={<ProtectedRoute element={<DuesPage />} />} />
-        <Route path="/exams" element={<ProtectedRoute element={<ExamPage />} />} />
+        <Route path="/student" element={<StudentPage />} />
+        <Route path="/teacher" element={<TeacherPage />} />
+        <Route path="/parent" element={<ParentPage />} />
+        <Route path="/other" element={<OtherPage />} />
+        <Route path="/grades" element={<GradePage />} />
+        <Route path="/schedule" element={<SchedulePage />} />
+        <Route path="/presence" element={<PresencePage />} />
+        <Route path="/library" element={<LibraryPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/help" element={<HelpPage />} />
+        <Route path="/mobile-app" element={<MobileAppPage />} />
+        <Route path="/about-us" element={<AboutUsPage />} />
+        <Route path="/dues" element={<DuesPage />} />
+        <Route path="/exams" element={<ExamPage />} />
       </Routes>
     </div>
   );

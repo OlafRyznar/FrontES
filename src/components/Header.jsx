@@ -7,24 +7,16 @@ const Header = () => {
   const navigate = useNavigate();
   const userRole = localStorage.getItem('user_role');
 
+  // Ustal aktywność przycisków na podstawie roli użytkownika
   const isStudentActive = userRole !== 'teacher' && userRole !== 'guardian';
   const isTeacherActive = userRole !== 'student' && userRole !== 'guardian';
   const isParentActive = userRole !== 'student' && userRole !== 'teacher';
 
+  // Funkcja do nawigacji, jeśli przycisk jest aktywny
   const handleClick = (isActive, to) => {
-    if (userRole && isActive) {
+    if (isActive) {
       navigate(to);
     }
-  };
-
-  const handleSignOff = () => {
-    localStorage.removeItem('user_role');
-    localStorage.removeItem('user_id');
-    navigate('/login');
-  };
-
-  const handleLogin = () => {
-    navigate('/login');
   };
 
   return (
@@ -40,27 +32,21 @@ const Header = () => {
         <button
           onClick={() => handleClick(isStudentActive, '/student')}
           disabled={!isStudentActive}
-          className={`text-[2rem] font-extrabold font-['Bitter'] mb-2 text-center md:text-left md:mb-0 ${
-            userRole && isStudentActive ? 'text-[#519bf3]' : 'text-gray-500 cursor-not-allowed'
-          }`}
+          className={`text-[2rem] font-extrabold font-['Bitter'] mb-2 text-center md:text-left md:mb-0 ${isStudentActive ? 'text-[#519bf3]' : 'text-gray-500 cursor-not-allowed'}`}
         >
           For student
         </button>
         <button
           onClick={() => handleClick(isTeacherActive, '/teacher')}
           disabled={!isTeacherActive}
-          className={`text-[2rem] font-extrabold font-['Bitter'] mb-2 text-center md:text-left md:mb-0 ${
-            userRole && isTeacherActive ? 'text-[#519bf3]' : 'text-gray-500 cursor-not-allowed'
-          }`}
+          className={`text-[2rem] font-extrabold font-['Bitter'] mb-2 text-center md:text-left md:mb-0 ${isTeacherActive ? 'text-[#519bf3]' : 'text-gray-500 cursor-not-allowed'}`}
         >
           For teacher
         </button>
         <button
           onClick={() => handleClick(isParentActive, '/parent')}
           disabled={!isParentActive}
-          className={`text-[2rem] font-extrabold font-['Bitter'] mb-2 text-center md:text-left md:mb-0 ${
-            userRole && isParentActive ? 'text-[#519bf3]' : 'text-gray-500 cursor-not-allowed'
-          }`}
+          className={`text-[2rem] font-extrabold font-['Bitter'] mb-2 text-center md:text-left md:mb-0 ${isParentActive ? 'text-[#519bf3]' : 'text-gray-500 cursor-not-allowed'}`}
         >
           For parent
         </button>
@@ -70,25 +56,6 @@ const Header = () => {
         >
           Other
         </Link>
-      </div>
-
-      {/* Sign off or login link */}
-      <div className="absolute top-4 right-4">
-        {!userRole ? (
-          <button
-            onClick={handleLogin}
-            className="text-gray-600 text-lg font-semibold hover:text-gray-800"
-          >
-            Login
-          </button>
-        ) : (
-          <button
-            onClick={handleSignOff}
-            className="text-gray-600 text-lg font-semibold hover:text-gray-800"
-          >
-            Sign out
-          </button>
-        )}
       </div>
     </div>
   );
